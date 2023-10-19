@@ -1,4 +1,4 @@
-return unless ENV["WITH_SENTRY_RAILS"]
+if ENV["WITH_SENTRY_RAILS"]
 
 require "rails"
 require "sentry-rails"
@@ -41,4 +41,6 @@ RSpec.describe Sentry::Sidekiq do
   it "adds sidekiq adapter to config.rails.skippable_job_adapters" do
     expect(Sentry.configuration.rails.skippable_job_adapters).to include("ActiveJob::QueueAdapters::SidekiqAdapter")
   end
+end
+
 end
