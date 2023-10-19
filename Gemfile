@@ -3,7 +3,7 @@ git_source(:github) { |name| "https://github.com/#{name}.git" }
 
 # Specify your gem's dependencies in sentry-ruby.gemspec
 gemspec
-gem 'sentry-ruby', git: 'git@github.com:ifad/sentry-legacy-ruby.git'
+gem 'sentry-ruby', git: 'https://github.com/ifad/sentry-legacy-ruby.git'
 
 gem "rake", "~> 12.0"
 gem "rspec", "~> 3.0"
