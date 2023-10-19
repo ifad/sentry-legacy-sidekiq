@@ -26,7 +26,7 @@ module Sentry
           hint: { background: false }
         )
       ensure
-        scope&.clear
+        scope.nil? ? nil : scope.clear
       end
 
       private

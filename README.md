@@ -5,4 +5,4 @@
   <br>
 </p>
 
-This is IFAD mirror of `sentry-ruby` gem with added support of legacy rubies (currently version 2.3)
+This is IFAD mirror of `sentry-sidekiq` gem with added support of legacy rubies (currently versions 2.3 and 2.2)

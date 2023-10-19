@@ -1,0 +1,38 @@
+name: Ruby Gem CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04, ubuntu-latest]
+        ruby: ['2.2.10', '2.3.8' ]
+        include:
+          - ruby: '2.2.10'
+            sidekiq_version: '5.2.8'
+            redis_rb_version: '4.1.1'
+            rails_version: '5.2.8.1'
+          - ruby: '2.3.8'
+            sidekiq_version: '5.2.8'
+            redis_rb_version: '4.4.0'
+            rails_version: '5.2.8.1'
+        exclude:
+          - ruby: '2.2.10'
+            os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.7.0
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - run: rm -rf .git
+    - run: SIDEKIQ_VERSION=${{ matrix.sidekiq_version }} REDIS_RB_VERSION=${{ matrix.redis_rb_version }} RAILS_VERSION=${{ matrix.rails_version }} make build
+    - run: SIDEKIQ_VERSION=${{ matrix.sidekiq_version }} REDIS_RB_VERSION=${{ matrix.redis_rb_version }} RAILS_VERSION=${{ matrix.rails_version }} bundle exec rake

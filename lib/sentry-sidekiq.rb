@@ -1,3 +1,4 @@
+require 'backports/2.3.0/numeric'
 require "sidekiq"
 require "sentry-ruby"
 require "sentry/integrable"
